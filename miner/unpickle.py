@@ -44,6 +44,10 @@ class PickleMiner(BaseMiner):
         else:
             resource_data = self._resbrowser.get_file_data(resource_path)
             data = pickle.loads(resource_data)
+            if 'solarSystems' in data:
+                for key in data['solarSystems'].keys():
+                    [x, y, z] = data['solarSystems'][key]['center']
+                    data['solarSystems'][key]['center'] = [f'{x:.0f}', f'{y:.0f}', f'{z:.0f}']
             return data
 
     @cachedproperty
